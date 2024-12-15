@@ -4,7 +4,7 @@ interface ISignupProps {
   // Add props here if needed
 }
 
-const Signup: React.FunctionComponent<ISignupProps> = (props) => {
+const SignUp: React.FunctionComponent<ISignupProps> = (props) => {
   return (
     <div>
       SignUp
@@ -12,4 +12,4 @@ const Signup: React.FunctionComponent<ISignupProps> = (props) => {
   );
 };
 
-export default Signup;
+export default SignUp;
