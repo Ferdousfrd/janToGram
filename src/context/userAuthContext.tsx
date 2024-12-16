@@ -1,86 +1,92 @@
 import { auth } from "@/firebaseConfig";
 import {
   createUserWithEmailAndPassword,
-  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   User,
 } from "firebase/auth";
-import { createContext, useContext, useEffect, useState } from "react";
+import { GoogleAuthProvider } from "firebase/auth/web-extension";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-interface IUserAuthProviderProps {
+interface IUserAuthContextProviderProps {
   children: React.ReactNode;
 }
 
-// creating the type for AuthContextData
+// creating our type for the userAuthContext
 type AuthContextData = {
-  user: User | null; // current user
-  logIn: typeof logIn;
-  signUp: typeof signUp;
+  user: User | null;
+  logIn: typeof logIn; // typeof here means logIn will be type of the function logIn
   logOut: typeof logOut;
+  signUp: typeof signUp;
   googleSignIn: typeof googleSignIn;
 };
 
-// defining the functions
+// creating login func. with firebase Auth and signInWithEmailPass method, firebase checks the email an pass in the system
 const logIn = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password);
-};
-
-const signUp = (email: string, password: string) => {
-  return createUserWithEmailAndPassword(auth, email, password);
 };
 
 const logOut = () => {
   signOut(auth);
 };
 
+const signUp = (email: string, password: string) => {
+  return createUserWithEmailAndPassword(auth, email, password);
+};
+
+// using goole auth method in firebaseAuth, using google signIn
 const googleSignIn = () => {
   const googleAuthProvider = new GoogleAuthProvider();
   return signInWithPopup(auth, googleAuthProvider);
 };
 
-// creating the context and providing initial value
-export const userAuthContext = createContext<AuthContextData>({
+// creating our context which values will be shared with children and we need to pass some initial data
+export const userAtuthContext = createContext<AuthContextData>({
   user: null,
   logIn,
-  signUp,
   logOut,
+  signUp,
   googleSignIn,
 });
 
-export const UserAuthProvider: React.FunctionComponent<
-  IUserAuthProviderProps
+export const userAuthProvider: React.FunctionComponent<
+  IUserAuthContextProviderProps
 > = ({ children }) => {
+  // setting up user value as null and changing it on authentication
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("The logged in user state is: ", user);
+        console.log("logged in user, ", user);
         setUser(user);
       }
 
+      // clean up function
       return () => {
-        unSubscribe();
+        unsubscribe();
       };
     });
   });
+
   const value: AuthContextData = {
     user,
     logIn,
-    signUp,
     logOut,
+    signUp,
     googleSignIn,
   };
+
   return (
-    <userAuthContext.Provider value={value}>
+    <userAtuthContext.Provider value={value}>
       {children}
-    </userAuthContext.Provider>
+    </userAtuthContext.Provider>
   );
 };
 
+// created custom hook to consume the value and use when needed without repitation
 export const useUserAuth = () => {
-  return useContext(userAuthContext);
+  return useContext(userAtuthContext);
 };
