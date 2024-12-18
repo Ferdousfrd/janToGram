@@ -6,7 +6,7 @@ import Home from "./pages/home";
 import CreatePost from "./pages/post";
 import Profile from "./pages/profile";
 import MyPhotos from "./pages/myPhotos";
-import ProtectedRoutes from "./components/ui/ProtectedRoutes";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 
 
 // creating all the routes for our pages and storing them in one router variable
