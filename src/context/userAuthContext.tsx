@@ -6,8 +6,8 @@ import {
   signInWithPopup,
   signOut,
   User,
+  GoogleAuthProvider
 } from "firebase/auth";
-import { GoogleAuthProvider } from "firebase/auth/web-extension";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface IUserAuthContextProviderProps {
@@ -51,7 +51,7 @@ export const userAtuthContext = createContext<AuthContextData>({
   googleSignIn,
 });
 
-export const userAuthProvider: React.FunctionComponent<
+export const UserAuthProvider: React.FunctionComponent<
   IUserAuthContextProviderProps
 > = ({ children }) => {
   // setting up user value as null and changing it on authentication
