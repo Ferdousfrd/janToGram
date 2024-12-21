@@ -1,3 +1,4 @@
+import Layout from '@/components/layout';
 import * as React from 'react';
 
 interface IProfileProps {
@@ -6,9 +7,9 @@ interface IProfileProps {
 
 const Profile: React.FunctionComponent<IProfileProps> = (props) => {
   return (
-    <div>
-      Profile Component
-    </div>
+    <Layout>
+      <div>Profile Component</div>
+    </Layout>
   );
 };
 

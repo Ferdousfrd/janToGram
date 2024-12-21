@@ -1,4 +1,5 @@
-import * as React from 'react';
+import Layout from "@/components/layout";
+import * as React from "react";
 
 interface ICreatePostProps {
   // Add props here if needed
@@ -6,9 +7,9 @@ interface ICreatePostProps {
 
 const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
   return (
-    <div>
-      CreatePost Component
-    </div>
+    <Layout>
+      <div>CreatePost Component</div>
+    </Layout>
   );
 };
 
