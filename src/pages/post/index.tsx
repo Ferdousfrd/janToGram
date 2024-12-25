@@ -4,14 +4,17 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useUserAuth } from "@/context/userAuthContext";
-import { FileEntry, Post } from "@/types";
+import { createPost } from "@/repository/post.service";
+import { FileEntry, PhotoMeta, Post } from "@/types";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface ICreatePostProps {
   // Add props here if needed
 }
 
 const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
+  const navigate = useNavigate();
   // refrence for logged in user
   const { user } = useUserAuth();
   // state for the files that we will upload to uploadcare. Initital is empty arrray
@@ -30,8 +33,27 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
   // handle submission func for the form
   const handleSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("fileEntry", fileEntry);
+    console.log("fileEntry", fileEntry.files);
     console.log("createPost", post);
+
+    // getting info from the fileEntry where we just upoaded files
+    const photoMeta: PhotoMeta[] = fileEntry.files.map((file) => {
+      return { cdnUrl: file.cdnUrl, uuid: file.uuid };
+    });
+
+    // new post creation
+    if (user != null) {
+      const newPost: Post = {
+        ...post,
+        userId: user?.uid || null,
+        photos: photoMeta,
+      };
+      console.log("the final post", newPost);
+      await createPost(newPost);
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -66,7 +88,7 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
                 {/*passing some props to upload the files & get cdn links and the output of the files that are uploaded*/}
               </div>
               <Button className="mt-8 w-32" type="submit">
-                Add
+                Post
               </Button>
             </form>
           </div>
