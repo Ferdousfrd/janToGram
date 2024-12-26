@@ -18,6 +18,7 @@ export const getPosts = () => {
 // gett phosst only for the logged in user
 export const getPostByUserId = (id: string) => {
     const q = query(collection(db, COLLECTION_NAME), where("userId", "==", id))
+    return getDocs(q)
 }
 
 // get single post
