@@ -13,6 +13,7 @@ const MyPhotos: React.FunctionComponent<IMyPhotosProps> = (props) => {
   const { user } = useUserAuth();
   const [data, setData] = React.useState<DocumentResponse[]>([]);
 
+  // getting the data for all the posts user created
   const getAllPost = async (id: string) => {
     try {
       // getting a snapshot or all the data stored in dbb by the given user id
@@ -37,7 +38,6 @@ const MyPhotos: React.FunctionComponent<IMyPhotosProps> = (props) => {
       console.log(error);
     }
   };
-
   React.useEffect(() => {
     if (user != null) {
       getAllPost(user.uid);
