@@ -11,11 +11,13 @@ import { FileEntry } from "@/types";
 interface IFileUploaderProps {
   fileEntry: FileEntry;
   onChange: (fileEntry: FileEntry) => void;
+  preview: boolean;
 }
 
 const FileUploader: React.FunctionComponent<IFileUploaderProps> = ({
   fileEntry,
   onChange,
+  preview,
 }) => {
   // State to store uploaded files
   const [uploadedFiles, setUploadedFiles] = React.useState<
@@ -64,33 +66,39 @@ const FileUploader: React.FunctionComponent<IFileUploaderProps> = ({
         sourceList="local, url, camera, dropbox"
         classNameUploader="uc-light"
         pubkey="c43cf7a57c2290179887"
-        multiple={true}
+        multiple={preview}
         confirmUpload={false}
         removeCopyright={true}
         imgOnly={true}
         onChange={handleFileUpload} // Attach the event handler here
       />
-      <div className="grid grid-cols-2 gap-4 mt-8">
-        {fileEntry.files.map((file) => (
-          <div key={file.uuid} className="relative">
-            <img
-              key={file.uuid}
-              src={`${file.cdnUrl}/-/format/webp/-/quality/smart/-/stretch/fill/
-              `}
-            />
 
-            <div className="cursor-pointer flex justify-center absolute -right-2 -top-2 bg-white border-2 border-slate-800  rounded-full w-7 h-7">
-              <button
-                className="text-slate-800 text-center"
-                type="button"
-                onClick={() => handleRemoveClick(file.uuid)}
-              >
-                ×
-              </button>
+      {/* conditionally rendering preview */}
+      {preview ? (
+        <div className="grid grid-cols-2 gap-4 mt-8">
+          {fileEntry.files.map((file) => (
+            <div key={file.uuid} className="relative">
+              <img
+                key={file.uuid}
+                src={`${file.cdnUrl}/-/format/webp/-/quality/smart/-/stretch/fill/
+          `}
+              />
+
+              <div className="cursor-pointer flex justify-center absolute -right-2 -top-2 bg-white border-2 border-slate-800  rounded-full w-7 h-7">
+                <button
+                  className="text-slate-800 text-center"
+                  type="button"
+                  onClick={() => handleRemoveClick(file.uuid)}
+                >
+                  ×
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

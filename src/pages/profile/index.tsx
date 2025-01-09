@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Edit2Icon, HeartIcon } from "lucide-react";
 import { getPostByUserId } from "@/repository/post.service";
 import { useNavigate } from "react-router-dom";
+import { getUserProfile } from "@/repository/user.service";
 
 interface IProfileProps {
   // Add props here if needed
@@ -54,12 +55,6 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
     }
   };
 
-  React.useEffect(() => {
-    if (user != null) {
-      getAllPost(user.uid);
-    }
-  }, []);
-
   // rendering the posts using data
   const renderPost = () => {
     return data.map((item) => {
@@ -82,9 +77,24 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
     });
   };
 
+  // getting user profile info from user collection in db
+  const getUserProfileInfo = async (userId: string) => {
+    const data: ProfileResponse = (await getUserProfile(userId)) || {};
+    if (data) {
+      setUserInfo(data);
+    }
+  };
+
+  React.useEffect(() => {
+    if (user != null) {
+      getAllPost(user.uid);
+      getUserProfileInfo(user.uid);
+    }
+  }, []);
+
   // editProfile func
   const editProfile = () => {
-    navigate("/edit-profile", {state: userInfo});
+    navigate("/edit-profile", { state: userInfo });
   };
 
   return (
