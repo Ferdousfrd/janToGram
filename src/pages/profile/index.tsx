@@ -80,7 +80,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
   // getting user profile info from user collection in db
   const getUserProfileInfo = async (userId: string) => {
     const data: ProfileResponse = (await getUserProfile(userId)) || {};
-    if (data) {
+    if (data.displayName) {
       setUserInfo(data);
     }
   };

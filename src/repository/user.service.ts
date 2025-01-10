@@ -32,7 +32,7 @@ export const getUserProfile = async (userId: string) => {
         }
         else {
             console.log("No such doc")
-            return tempData
+            return null
         }
     } catch (error) {
         console.log(error)

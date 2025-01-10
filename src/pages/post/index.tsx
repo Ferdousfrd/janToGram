@@ -38,15 +38,17 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
 
     // getting info from the fileEntry where we just upoaded files
     const photoMeta: PhotoMeta[] = fileEntry.files.map((file) => {
-      return { cdnUrl: file.cdnUrl, uuid: file.uuid };
+      return { cdnUrl: file.cdnUrl!, uuid: file.uuid! };
     });
 
     // new post creation
     if (user != null) {
       const newPost: Post = {
         ...post,
-        userId: user?.uid || null,
+        userId: user?.uid,
         photos: photoMeta,
+        userName: user.displayName!,
+        photoURL: user.photoURL!,
       };
       console.log("the final post", newPost);
       await createPost(newPost);
