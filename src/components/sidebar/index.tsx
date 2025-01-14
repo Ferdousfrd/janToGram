@@ -37,21 +37,22 @@ const navItems = [
     link: "/profile",
     icon: profileIcon,
   },
-  {
-    name: "Notifications",
-    link: "#",
-    icon: notificationIcon,
-  },
-  {
-    name: "Direct",
-    link: "#",
-    icon: directIcon,
-  },
-  {
-    name: "Settings",
-    link: "#",
-    icon: settingsIcon,
-  },
+  // FUTURE FEATURES
+  // {
+  //   name: "Notifications",
+  //   link: "#",
+  //   icon: notificationIcon,
+  // },
+  // {
+  //   name: "Direct",
+  //   link: "#",
+  //   icon: directIcon,
+  // },
+  // {
+  //   name: "Settings",
+  //   link: "#",
+  //   icon: settingsIcon,
+  // },
 ];
 
 const Sidebar: React.FunctionComponent<ISidebarProps> = () => {

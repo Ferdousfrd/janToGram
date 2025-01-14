@@ -41,7 +41,7 @@ const Home: React.FunctionComponent<IHomeProps> = () => {
         <div className="relative mb-6 w-full text-gray-600">
           <Input
             className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-sm text-base focus:outline-none"
-            placeholder="search"
+            placeholder="search (underConstruction)"
             type="search"
             name="search"
           />
@@ -50,7 +50,12 @@ const Home: React.FunctionComponent<IHomeProps> = () => {
           </button>
         </div>
         <div className="mb-5 overflow-y-auto">
-          <h2 className="mb-5">Stories</h2>
+          <h2 className="mb-5">
+            Stories
+            <span className="text-xs text-white p-3 py-1 h-4 bg-sky-900 rounded-full ml-3">
+              underConstruction
+            </span>
+          </h2>
           <Stories />
         </div>
         <div className="mb-5">

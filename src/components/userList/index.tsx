@@ -64,7 +64,14 @@ const UserList: React.FunctionComponent<IUserListProps> = () => {
           </span>
         </div>
       </Link>
-      <h3 className="text-sm text-slate-300">friends & neighbours </h3>
+
+      <h3 className="text-sm text-slate-300">
+        friends & neighbours{" "}
+        <span className="text-xs text-white p-3 py-1 h-4 ml-4 bg-sky-900 rounded-full">
+          Broken
+        </span>
+      </h3>
+
       <div className="my-4">
         {suggestedUser.length > 0 ? renderUsers() : ""}
       </div>

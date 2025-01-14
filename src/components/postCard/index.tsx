@@ -46,7 +46,7 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
   };
 
   return (
-    <Card className="mb-6" >
+    <Card className="mb-6">
       <CardHeader className="flex flex-col p-3">
         <CardTitle className="text-sm text-center flex justify-start items-center">
           <span className="mr-2">
@@ -73,7 +73,7 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
             )}
             onClick={() => updateLike(!likeInfo.isLike)}
           />
-          <MessageCircle className="mr-3" />
+          {/* <MessageCircle className="mr-3" /> */}
         </div>
         <div className="w-full text-sm">{likeInfo.likes} likes</div>
         <div className="w-full text-sm">
