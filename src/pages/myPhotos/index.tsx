@@ -9,7 +9,7 @@ interface IMyPhotosProps {
   // Add props here if needed
 }
 
-const MyPhotos: React.FunctionComponent<IMyPhotosProps> = (props) => {
+const MyPhotos: React.FunctionComponent<IMyPhotosProps> = () => {
   const { user } = useUserAuth();
   const [data, setData] = React.useState<DocumentResponse[]>([]);
 
@@ -47,7 +47,7 @@ const MyPhotos: React.FunctionComponent<IMyPhotosProps> = (props) => {
   const renderPost = () => {
     return data.map((item) => {
       return (
-        <div key={item.photos[0].uuid} className="relative">
+        <div key={item.photos![0].uuid} className="relative">
           <div className="absolute group transition-all duration-150 bg-transparent hover:bg-slate-950 hover:bg-opacity-75 top-0 bottom-0 left-0 right-0 w-full h-full">
             <div className="flex flex-col justify-center items-center w-full h-full">
               <HeartIcon className="hidden group-hover:block fill-white" />
@@ -57,7 +57,7 @@ const MyPhotos: React.FunctionComponent<IMyPhotosProps> = (props) => {
             </div>
           </div>
           <img
-            src={`${item.photos[0].cdnUrl}/-/scale_crop/300x300/center/`}
+            src={`${item.photos![0].cdnUrl}/-/scale_crop/300x300/center/`}
             alt="Uploaded"
           />
         </div>

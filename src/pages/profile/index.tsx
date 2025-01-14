@@ -1,6 +1,6 @@
 import Layout from "@/components/layout";
 import { useUserAuth } from "@/context/userAuthContext";
-import { DocumentResponse, Post, ProfileInfo, ProfileResponse } from "@/types";
+import { DocumentResponse, Post, ProfileResponse } from "@/types";
 import * as React from "react";
 import img3 from "@/assets/images/img3.jpg";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,7 @@ interface IProfileProps {
   // Add props here if needed
 }
 
-const Profile: React.FunctionComponent<IProfileProps> = (props) => {
+const Profile: React.FunctionComponent<IProfileProps> = () => {
   const { user } = useUserAuth();
 
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
   const renderPost = () => {
     return data.map((item) => {
       return (
-        <div key={item.photos[0].uuid} className="relative">
+        <div key={item.photos![0].uuid} className="relative">
           <div className="absolute group transition-all duration-150 bg-transparent hover:bg-slate-950 hover:bg-opacity-75 top-0 bottom-0 left-0 right-0 w-full h-full">
             <div className="flex flex-col justify-center items-center w-full h-full">
               <HeartIcon className="hidden group-hover:block fill-white" />
@@ -69,7 +69,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
             </div>
           </div>
           <img
-            src={`${item.photos[0].cdnUrl}/-/scale_crop/300x300/center/`}
+            src={`${item.photos![0].cdnUrl}/-/scale_crop/300x300/center/`}
             alt="Uploaded"
           />
         </div>

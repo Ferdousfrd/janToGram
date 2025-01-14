@@ -23,8 +23,8 @@ export interface Post {
     caption: string,
     photos: PhotoMeta[],
     likes: number,
-    userLikes: [],
-    userId?: string,
+    userLikes: string[],
+    userId?: string | null,
     userName?: string,
     photoURL?: string,
     date: Date
@@ -40,10 +40,10 @@ export interface DocumentResponse {
     caption?: string,
     photos?: PhotoMeta[],
     likes?: number,
-    userLikes?: [],
+    userLikes?: string[],
     userName?: string,
     photoURL?: string,
-    userId?: string,
+    userId?: string | null,
     date?: Date
 }
 

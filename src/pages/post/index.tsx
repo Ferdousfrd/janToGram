@@ -13,7 +13,7 @@ interface ICreatePostProps {
   // Add props here if needed
 }
 
-const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
+const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
   const navigate = useNavigate();
   // refrence for logged in user
   const { user } = useUserAuth();

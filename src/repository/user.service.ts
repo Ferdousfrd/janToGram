@@ -46,3 +46,28 @@ export const updateUserProfile = (id: string, user: UserProfile) => {
         ...user
     })
 }
+
+// getting all the users from firebase excpet the current logged in user
+export const getAllUsers = async (userId: string) => {
+    try {
+        const querySnapshot = await getDocs(collection(db, COLLECTION_NAME))
+        const tempArr: ProfileResponse[] = []
+        if (querySnapshot.size > 0) {
+            querySnapshot.forEach((doc) => {
+                const userData = doc.data() as UserProfile
+                const responseObj: ProfileResponse = {
+                    id: doc.id,
+                    ...userData
+                }
+                tempArr.push(responseObj)
+            })
+            return tempArr.filter(item => item.userId != userId)  // excludes the current user obj
+        }
+        else {
+            console.log("no user profile to fetch")
+        }
+    }
+    catch (error) {
+        console.log(error)
+    }
+}

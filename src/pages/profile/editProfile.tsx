@@ -19,7 +19,7 @@ interface IEditProfileProps {
   // Add props here if needed
 }
 
-const EditProfile: React.FunctionComponent<IEditProfileProps> = (props) => {
+const EditProfile: React.FunctionComponent<IEditProfileProps> = () => {
   const { user, updateProfileInfo } = useUserAuth();
   const location = useLocation();
   const navigate = useNavigate();

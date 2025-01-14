@@ -7,7 +7,7 @@ interface IProtectedRoutes {
   // Add props here if needed
 }
 
-const ProtectedRoutes: React.FunctionComponent<IProtectedRoutes> = (props) => {
+const ProtectedRoutes: React.FunctionComponent<IProtectedRoutes> = () => {
   const auth = getAuth();
   const [user, loading] = useAuthState(auth);
   const location = useLocation();

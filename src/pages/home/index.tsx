@@ -12,7 +12,7 @@ interface IHomeProps {
   // Add props here if needed
 }
 
-const Home: React.FunctionComponent<IHomeProps> = (props) => {
+const Home: React.FunctionComponent<IHomeProps> = () => {
   // getting the logged in user
   const { user } = useUserAuth();
   // state for stored data for feed

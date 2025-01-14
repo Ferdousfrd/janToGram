@@ -7,7 +7,7 @@ interface IStoriesProps {
   // Add props here if needed
 }
 
-const Stories: React.FunctionComponent<IStoriesProps> = (props) => {
+const Stories: React.FunctionComponent<IStoriesProps> = () => {
   return (
     <div className="flex justify-between">
       <img
