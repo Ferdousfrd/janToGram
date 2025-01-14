@@ -1,6 +1,8 @@
 // all our types are define here
 
 import { OutputFileEntry } from "@uploadcare/react-uploader";
+import { User } from "firebase/auth";
+
 
 export interface UserLogIn {
     email: string;
@@ -21,8 +23,10 @@ export interface Post {
     caption: string,
     photos: PhotoMeta[],
     likes: number,
-    userLikes: [],
-    userId: string | null,
+    userLikes: string[],
+    userId?: string | null,
+    userName?: string,
+    photoURL?: string,
     date: Date
 }
 
@@ -36,7 +40,30 @@ export interface DocumentResponse {
     caption?: string,
     photos?: PhotoMeta[],
     likes?: number,
-    userLikes?: [],
-    userId?: string ,
+    userLikes?: string[],
+    userName?: string,
+    photoURL?: string,
+    userId?: string | null,
     date?: Date
+}
+
+export interface ProfileInfo {
+    user?: User,
+    displayName?: string,
+    photoURL?: string
+}
+
+export interface UserProfile {
+    userId?: string,
+    displayName?: string,
+    photoURL?: string,
+    userBio?: string
+}
+
+export interface ProfileResponse {
+    id?: string,
+    userId?: string,
+    displayName?: string,
+    photoURL?: string,
+    userBio?: string
 }

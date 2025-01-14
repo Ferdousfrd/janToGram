@@ -23,7 +23,7 @@ interface ILoginProps {
   // Add props here if needed
 }
 
-const Login: React.FunctionComponent<ILoginProps> = (props) => {
+const Login: React.FunctionComponent<ILoginProps> = () => {
   const initialValue: UserLogIn = {
     email: "",
     password: "",

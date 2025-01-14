@@ -1,5 +1,5 @@
 import { db } from "@/firebaseConfig";
-import { DocumentResponse, Post } from "@/types";
+import { DocumentResponse, Post, ProfileInfo } from "@/types";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, updateDoc, where } from "firebase/firestore";
 
 const COLLECTION_NAME = "posts"
@@ -34,7 +34,7 @@ export const getPosts = async () => {
     }
 }
 
-// gett phosst only for the logged in user
+// get post only for the logged in user
 export const getPostByUserId = (id: string) => {
     const q = query(collection(db, COLLECTION_NAME), where("userId", "==", id))
     return getDocs(q)
@@ -57,4 +57,20 @@ export const updateLikesOnPost = (id: string, userLikes: string[], likes: number
         likes: likes,
         userLikes: userLikes
     })
+}
+
+export const updateUserInfoOnPosts = async (profileInfo: ProfileInfo) => {
+    const q = query(collection(db, COLLECTION_NAME), where("userId", "==", profileInfo.user?.uid))
+    const querySnapshot = await getDocs(q)
+    if (querySnapshot.size > 0) {
+        querySnapshot.forEach((document) => {
+            const docRef = doc(db, COLLECTION_NAME, document.id)
+            updateDoc(docRef, {
+                userName: profileInfo.displayName,
+                photoURL: profileInfo.photoURL
+            })
+        })
+    } else {
+        console.log("The user doesnt have any posts")
+    }
 }

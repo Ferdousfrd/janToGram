@@ -1,4 +1,5 @@
 import { auth } from "@/firebaseConfig";
+import { ProfileInfo } from "@/types";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -6,7 +7,8 @@ import {
   signInWithPopup,
   signOut,
   User,
-  GoogleAuthProvider
+  GoogleAuthProvider,
+  updateProfile,
 } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
@@ -21,6 +23,7 @@ type AuthContextData = {
   logOut: typeof logOut;
   signUp: typeof signUp;
   googleSignIn: typeof googleSignIn;
+  updateProfileInfo: typeof updateProfileInfo;
 };
 
 // creating login func. with firebase Auth and signInWithEmailPass method, firebase checks the email an pass in the system
@@ -42,6 +45,14 @@ const googleSignIn = () => {
   return signInWithPopup(auth, googleAuthProvider);
 };
 
+const updateProfileInfo = (profileInfo: ProfileInfo) => {
+  console.log("The user profile info is :", profileInfo);
+  return updateProfile(profileInfo.user!, {
+    displayName: profileInfo.displayName,
+    photoURL: profileInfo.photoURL,
+  });
+};
+
 // creating our context which values will be shared with children and we need to pass some initial data
 export const userAtuthContext = createContext<AuthContextData>({
   user: null,
@@ -49,6 +60,7 @@ export const userAtuthContext = createContext<AuthContextData>({
   logOut,
   signUp,
   googleSignIn,
+  updateProfileInfo,
 });
 
 export const UserAuthProvider: React.FunctionComponent<
@@ -77,6 +89,7 @@ export const UserAuthProvider: React.FunctionComponent<
     logOut,
     signUp,
     googleSignIn,
+    updateProfileInfo
   };
 
   return (

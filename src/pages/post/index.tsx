@@ -13,7 +13,7 @@ interface ICreatePostProps {
   // Add props here if needed
 }
 
-const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
+const CreatePost: React.FunctionComponent<ICreatePostProps> = () => {
   const navigate = useNavigate();
   // refrence for logged in user
   const { user } = useUserAuth();
@@ -38,15 +38,17 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
 
     // getting info from the fileEntry where we just upoaded files
     const photoMeta: PhotoMeta[] = fileEntry.files.map((file) => {
-      return { cdnUrl: file.cdnUrl, uuid: file.uuid };
+      return { cdnUrl: file.cdnUrl!, uuid: file.uuid! };
     });
 
     // new post creation
     if (user != null) {
       const newPost: Post = {
         ...post,
-        userId: user?.uid || null,
+        userId: user?.uid,
         photos: photoMeta,
+        userName: user.displayName!,
+        photoURL: user.photoURL!,
       };
       console.log("the final post", newPost);
       await createPost(newPost);
@@ -84,7 +86,11 @@ const CreatePost: React.FunctionComponent<ICreatePostProps> = (props) => {
                 <Label className="mb-4" htmlFor="photo">
                   Photos
                 </Label>
-                <FileUploader fileEntry={fileEntry} onChange={setFileEntry} />{" "}
+                <FileUploader
+                  fileEntry={fileEntry}
+                  onChange={setFileEntry}
+                  preview={true}
+                />
                 {/*passing some props to upload the files & get cdn links and the output of the files that are uploaded*/}
               </div>
               <Button className="mt-8 w-32" type="submit">

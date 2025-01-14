@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import img1 from "@/assets/images/img1.jpg";
+
 import { HeartIcon, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { updateLikesOnPost } from "@/repository/post.service";
@@ -23,8 +23,8 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
     likes: number;
     isLike: boolean;
   }>({
-    likes: data.likes,
-    isLike: data.userLikes?.includes(user?.uid) ? true : false,
+    likes: data.likes!,
+    isLike: data.userLikes?.includes(user!.uid) ? true : false,
   });
 
   const updateLike = async (isVal: boolean) => {
@@ -46,16 +46,16 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
   };
 
   return (
-    <Card className="mb-6">
+    <Card className="mb-6" >
       <CardHeader className="flex flex-col p-3">
         <CardTitle className="text-sm text-center flex justify-start items-center">
           <span className="mr-2">
             <img
-              src={img1}
+              src={data.photoURL}
               className="w-10 h-10 rounded-full border-slate-800 object-cover"
             />
           </span>
-          <span>Guest user</span>
+          <span>{data.userName}</span>
         </CardTitle>
       </CardHeader>
 
@@ -77,7 +77,7 @@ const PostCard: React.FunctionComponent<IPostCardProps> = ({ data }) => {
         </div>
         <div className="w-full text-sm">{likeInfo.likes} likes</div>
         <div className="w-full text-sm">
-          <span>Guest_user</span>: {data.caption}
+          <span>{data.userName}</span>: {data.caption}
         </div>
       </CardFooter>
     </Card>

@@ -7,7 +7,7 @@ interface IAppProps {
   // Add props here if needed
 }
 
-const App: React.FunctionComponent<IAppProps> = (props) => {
+const App: React.FunctionComponent<IAppProps> = () => {
   return (
     <UserAuthProvider>
       <RouterProvider router={router} />

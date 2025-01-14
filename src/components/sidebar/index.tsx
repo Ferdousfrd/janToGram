@@ -54,7 +54,7 @@ const navItems = [
   },
 ];
 
-const Sidebar: React.FunctionComponent<ISidebarProps> = (props) => {
+const Sidebar: React.FunctionComponent<ISidebarProps> = () => {
   const { pathname } = useLocation();
   const { logOut } = useUserAuth();
 
